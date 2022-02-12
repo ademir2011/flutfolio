@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         drawerTheme: const DrawerThemeData(
           backgroundColor: Color(0xff202024),
         ),
-        dividerTheme: const DividerThemeData(
-          color: Color(0xFFE1E1E6),
+        dividerTheme: DividerThemeData(
+          color: Colors.white.withAlpha(50),
           indent: 100,
           endIndent: 100,
         ),
@@ -36,11 +36,24 @@ class MyApp extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.w400,
           ),
+          headline3: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+          headline4: TextStyle(
+            color: Colors.white60,
+            fontSize: 12.5,
+            fontWeight: FontWeight.w500,
+          ),
           button: TextStyle(
             color: Colors.white,
             fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(textStyle: TextStyle(color: Colors.red)),
         ),
         hoverColor: const Color(0xFFE5BE51),
         iconTheme: const IconThemeData(
@@ -61,7 +74,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         backgroundColor: const Color(0xFF121214),
-        cardTheme: const CardTheme(
+        cardTheme: CardTheme(
           color: Color(0xFF202024),
         ),
         errorColor: const Color(0xFFDC3545),

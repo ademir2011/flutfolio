@@ -37,9 +37,13 @@ class _HomeState extends State<Home> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(
+                left: 50,
+                right: 50,
+                top: 150,
+              ),
               child: Navigator(
-                initialRoute: RoutesName.PROJETOS,
+                initialRoute: RoutesName.TRAJETORIA,
                 onGenerateRoute: (settings) {
                   return MaterialPageRoute(
                     builder: (ctx) {
