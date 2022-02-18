@@ -42,7 +42,11 @@ class CertificationsPage extends StatelessWidget {
                         ),
                         const SizedBox(width: 20),
                         CCardGeneric(
-                          child: Image.network(certifications[index].imageUrl),
+                          child: Image.network(
+                            certifications[index].imageUrl,
+                            width: 500,
+                            height: 300,
+                          ),
                         ),
                       ],
                     ),

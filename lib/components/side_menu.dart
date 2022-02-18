@@ -1,4 +1,6 @@
 import 'package:flutfolio/components/cbutton.dart';
+import 'package:flutfolio/utils/icon_helper.dart';
+import 'package:flutfolio/utils/image_helper.dart';
 import 'package:flutfolio/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -11,22 +13,22 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final dataButtons = [
       {
-        'icon': Icons.accessibility_rounded,
+        'icon': IconHelper.getPath(IconName.projects),
         'text': 'PROJETOS',
         'onPressed': () => navigatorKey.currentState!.pushNamedAndRemoveUntil(RoutesName.PROJETOS, (r) => false),
       },
       {
-        'icon': Icons.accessibility_rounded,
+        'icon': IconHelper.getPath(IconName.trajectory),
         'text': 'TRAJETÓRIA',
         'onPressed': () => navigatorKey.currentState!.pushNamedAndRemoveUntil(RoutesName.TRAJETORIA, (r) => false),
       },
       {
-        'icon': Icons.accessibility_rounded,
+        'icon': IconHelper.getPath(IconName.certificate),
         'text': 'CERTIFICAÇÕES',
         'onPressed': () => navigatorKey.currentState!.pushNamedAndRemoveUntil(RoutesName.CERTIFICACOES, (r) => false),
       },
       {
-        'icon': Icons.accessibility_rounded,
+        'icon': IconHelper.getPath(IconName.contact),
         'text': 'CONTATO',
         'onPressed': () => navigatorKey.currentState!.pushNamedAndRemoveUntil(RoutesName.CONTATO, (r) => false),
       }
@@ -40,9 +42,14 @@ class SideMenu extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircleAvatar(
-                backgroundColor: Colors.grey,
-                radius: 50,
+              ClipRRect(
+                child: Image.asset(
+                  'lib/assets/images/eu.jpg',
+                  height: 125,
+                  width: 125,
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(100),
               ),
               const SizedBox(height: 25),
               Text(
@@ -66,7 +73,7 @@ class SideMenu extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.only(bottom: 25),
                 child: CButton(
-                  icon: element['icon'] as IconData,
+                  iconUrl: element['icon'].toString(),
                   text: element['text'].toString(),
                   onPressed: element['onPressed'] as Function(),
                 ),

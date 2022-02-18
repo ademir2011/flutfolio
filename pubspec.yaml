@@ -73,6 +73,7 @@ flutter:
     - lib/assets/icons/certificate.png
     - lib/assets/images/certificate.png
     - lib/assets/images/default_image.png
+    - lib/assets/images/eu.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
