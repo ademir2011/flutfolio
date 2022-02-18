@@ -43,7 +43,6 @@ class CertificationsPage extends StatelessWidget {
                         const SizedBox(width: 20),
                         CCardGeneric(
                           child: Image.network(certifications[index].imageUrl),
-                          size: const Size(0, 300),
                         ),
                       ],
                     ),

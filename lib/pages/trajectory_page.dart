@@ -3,7 +3,7 @@ import 'package:flutfolio/components/ctimeline.dart';
 import 'package:flutfolio/models/trajectory.dart';
 import 'package:flutter/material.dart';
 
-class TrajetoryPage extends StatelessWidget {
+class TrajetoryPage extends StatefulWidget {
   final List<Trajectory> trajectories;
   const TrajetoryPage({
     Key? key,
@@ -11,26 +11,47 @@ class TrajetoryPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<TrajetoryPage> createState() => _TrajetoryPageState();
+}
+
+class _TrajetoryPageState extends State<TrajetoryPage> {
+  final Map<String, List<Trajectory>> dataYears = {};
+
+  @override
+  void initState() {
+    super.initState();
+    widget.trajectories.forEach((element) {
+      dataYears.update(
+        element.startDate.year.toString(),
+        (value) => [...value, element],
+        ifAbsent: () => [element],
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CHeader(title: 'TRAJETÓRIA'),
-          Expanded(
-            child: ListView.builder(
-              itemCount: trajectories.length,
-              itemBuilder: (ctx, index) {
-                return CTimeline(
-                  index: index,
-                  trajectory: trajectories[index],
-                );
-              },
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CHeader(title: 'TRAJETÓRIA'),
+        Expanded(
+          child: ListView.builder(
+            itemCount: dataYears.length,
+            itemBuilder: (ctx, index) {
+              return CTimeline(
+                index: index,
+                year: dataYears.keys.elementAt(index),
+                trajectoryList: dataYears.values.elementAt(index),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
+}
+
+class Counter {
+  var i = ValueNotifier(1);
 }

@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 
 class CCardGeneric extends StatelessWidget {
   final Widget child;
-  final Size size;
   const CCardGeneric({
     Key? key,
-    required this.size,
     required this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),

@@ -122,21 +122,12 @@ class _HomeState extends State<Home> {
     ],
     trajectories: [
       Trajectory(
-        entepriseName: 'One Dreams',
-        position: 'Desenvolvedor Mobile | Android/Groovy/Grails',
-        startDate: DateTime.parse('2016-04-01'),
-        endDate: DateTime.parse('2017-01-01'),
+        position: 'Desenvolvedor full stack - Java/Spring/Flutter',
+        entepriseName: 'NuT - Núcleo de Tecnologia',
+        startDate: DateTime.parse('2021-01-01'),
+        endDate: DateTime.parse('2021-09-01'),
         tasks: [
-          'Startup iniciada com um grupo de 5 jovens empreendedores e apaixonados por inovação focada no desenvolvimento de soluções de TI para empresas fornecendo para estas o desenvolvimento de sistemas, manutenção e criação de novos módulos para aplicações já existentes',
-        ],
-      ),
-      Trajectory(
-        entepriseName: 'CTIS Tecnologia',
-        position: 'Analista de Service Desk',
-        startDate: DateTime.parse('2017-07-01'),
-        endDate: DateTime.parse('2018-12-01'),
-        tasks: [
-          'mpresa prestadora de serviços de TI. Minha função era atuar como nível 1 no suporte remoto auxiliando usuários com dificuldades em utilizar os sistemas de sua empresa.',
+          'Desenvolvendo sistemas da área de saúde com as tecnologias Java/Spring, além de realizar manutenção em sistema mobile Android utilizando a tecnologia Flutter.',
         ],
       ),
       Trajectory(
@@ -149,12 +140,21 @@ class _HomeState extends State<Home> {
         ],
       ),
       Trajectory(
-        position: 'Desenvolvedor full stack - Java/Spring/Flutter',
-        entepriseName: 'NuT - Núcleo de Tecnologia',
-        startDate: DateTime.parse('2021-01-01'),
-        endDate: DateTime.parse('2021-09-01'),
+        entepriseName: 'CTIS Tecnologia',
+        position: 'Analista de Service Desk',
+        startDate: DateTime.parse('2017-07-01'),
+        endDate: DateTime.parse('2018-12-01'),
         tasks: [
-          'Desenvolvendo sistemas da área de saúde com as tecnologias Java/Spring, além de realizar manutenção em sistema mobile Android utilizando a tecnologia Flutter.',
+          'Empresa prestadora de serviços de TI. Minha função era atuar como nível 1 no suporte remoto auxiliando usuários com dificuldades em utilizar os sistemas de sua empresa.',
+        ],
+      ),
+      Trajectory(
+        entepriseName: 'One Dreams',
+        position: 'Desenvolvedor Mobile | Android/Groovy/Grails',
+        startDate: DateTime.parse('2016-04-01'),
+        endDate: DateTime.parse('2017-01-01'),
+        tasks: [
+          'Startup iniciada com um grupo de 5 jovens empreendedores e apaixonados por inovação focada no desenvolvimento de soluções de TI para empresas fornecendo para estas o desenvolvimento de sistemas, manutenção e criação de novos módulos para aplicações já existentes',
         ],
       ),
     ],
@@ -207,7 +207,7 @@ class _HomeState extends State<Home> {
                 top: 50,
               ),
               child: Navigator(
-                initialRoute: RoutesName.PROJETOS,
+                initialRoute: RoutesName.TRAJETORIA,
                 onGenerateRoute: (settings) {
                   return MaterialPageRoute(
                     builder: (ctx) {
