@@ -1,10 +1,10 @@
 import 'package:flutfolio/components/ctag.dart';
-import 'package:flutfolio/models/project.dart';
 import 'package:flutfolio/models/tags.dart';
+import 'package:flutfolio/utils/icon_helper.dart';
 import 'package:flutter/material.dart';
+import 'dart:js' as js;
 
 class CCard extends StatelessWidget {
-  final Size? size;
   final String title;
   final String description;
   final List<Tags> tags;
@@ -12,35 +12,16 @@ class CCard extends StatelessWidget {
 
   const CCard({
     Key? key,
-    this.size,
     required this.title,
     required this.description,
     this.tags = const [],
     this.gitUrl = '',
   }) : super(key: key);
 
-  double getWidth(Size? size) {
-    if (size == null) return 500;
-
-    if (size.width < 1200) {
-      return double.infinity;
-    } else if (size.width < 1400) {
-      return 300;
-    } else if (size.width < 1600) {
-      return 325;
-    } else if (size.width < 1800) {
-      return 425;
-    } else {
-      return 450;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      width: getWidth(size),
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: Theme.of(context).cardTheme.color,
@@ -79,15 +60,15 @@ class CCard extends StatelessWidget {
           const SizedBox(height: 10),
           const Divider(indent: 0, endIndent: 0, height: 0.5),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              const Icon(Icons.gite_outlined),
-              const SizedBox(width: 15),
-              TextButton(
-                child: Text(gitUrl),
-                onPressed: () {},
+          IconButton(
+            icon: ImageIcon(
+              AssetImage(
+                IconHelper.getPath(IconName.github),
               ),
-            ],
+            ),
+            onPressed: () {
+              js.context.callMethod('open', [gitUrl]);
+            },
           ),
         ],
       ),

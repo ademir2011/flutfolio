@@ -120,7 +120,7 @@ class CTimelineCard extends StatelessWidget {
                     fit: FlexFit.tight,
                     flex: 3,
                     child: Text(
-                      trajectory.title,
+                      trajectory.entepriseName,
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),

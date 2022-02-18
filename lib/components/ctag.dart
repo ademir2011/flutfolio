@@ -16,7 +16,7 @@ class CTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Text(
-        'asdasd',
+        title,
         style: Theme.of(context).textTheme.headline3,
       ),
     );

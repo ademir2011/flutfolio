@@ -1,48 +1,57 @@
+import 'package:flutfolio/models/project_image.dart';
+import 'package:flutfolio/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 
-class CProjectImage extends StatelessWidget {
-  final Size? size;
+class CProjectImage extends StatefulWidget {
+  final List<ProjectImage> projectImages;
+
   const CProjectImage({
     Key? key,
-    this.size,
+    required this.projectImages,
   }) : super(key: key);
 
-  double getWidth(Size? size) {
-    if (size == null)
-      return 500;
-    else if (size.width < 1400) {
-      return 125;
-    }
-    if (size.width < 1600) {
-      return 150;
-    } else if (size.width < 1800) {
-      return 200;
-    } else {
-      return 300;
-    }
-  }
+  @override
+  State<CProjectImage> createState() => _CProjectImageState();
+}
+
+class _CProjectImageState extends State<CProjectImage> {
+  var _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            Icons.arrow_back_ios,
-            color: Theme.of(context).primaryColor,
-          ),
+          if (_selectedIndex != 0)
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Theme.of(context).primaryColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex--;
+                });
+              },
+            ),
           Image.network(
-            'https://cdn-icons-png.flaticon.com/512/226/226770.png',
-            width: getWidth(size),
-            // fit: BoxFit.contain,
+            widget.projectImages[_selectedIndex].urlImage,
           ),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: Theme.of(context).primaryColor,
-          )
+          if (_selectedIndex != widget.projectImages.length - 1)
+            IconButton(
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).primaryColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex++;
+                });
+              },
+            ),
         ],
       ),
     );
