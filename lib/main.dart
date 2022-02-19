@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutfolio/pages/administration/auth_page.dart';
 import 'package:flutfolio/pages/home.dart';
 import 'package:flutter/material.dart';
 
@@ -87,6 +88,9 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             home: const Home(),
+            routes: {
+              '/admin': (context) => const AuthPage(),
+            },
           );
         } else {
           return const Material(
