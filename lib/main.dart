@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutfolio/pages/administration/auth_page.dart';
-import 'package:flutfolio/pages/home.dart';
+import 'package:flutfolio/src/pages/administration/auth_page.dart';
+import 'package:flutfolio/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
               errorColor: const Color(0xFFDC3545),
             ),
             debugShowCheckedModeBanner: false,
-            home: const Home(),
+            home: const HomePage(),
             routes: {
               '/admin': (context) => const AuthPage(),
             },
