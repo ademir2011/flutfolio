@@ -2,31 +2,31 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutfolio/src/services/firebase_auth_interface.dart';
 
 class FirebaseAuthService implements FirebaseAuthInterface {
-  final firebaseAuthInstance = FirebaseAuth.instance;
+  final authInstance = FirebaseAuth.instance;
 
   @override
-  void firebaseSignOut() async {
-    await firebaseAuthInstance.signOut();
+  void signOut() async {
+    await authInstance.signOut();
   }
 
   @override
-  Future<UserCredential> firebaseSignIn({
+  Future<UserCredential> signIn({
     required String email,
     required String password,
   }) async {
-    return await firebaseAuthInstance.signInWithEmailAndPassword(
+    return await authInstance.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
   @override
-  Future<UserCredential> firebaseSignUp({
+  Future<UserCredential> signUp({
     required String email,
     required String password,
     required String confirmPassword,
   }) async {
-    return await firebaseAuthInstance.createUserWithEmailAndPassword(
+    return await authInstance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );

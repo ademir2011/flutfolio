@@ -14,14 +14,9 @@ class CardGenericWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: Theme.of(context).cardTheme.color,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xCCE5BE51),
-            blurRadius: 2.5,
-            spreadRadius: 0.5,
-            offset: Offset(0, 0),
-          ),
-        ],
+        border: Border.all(
+          color: Theme.of(context).primaryColor,
+        ),
       ),
       child: child,
     );

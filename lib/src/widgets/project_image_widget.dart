@@ -36,9 +36,9 @@ class _ProjectImageStateWidget extends State<ProjectImageWidget> {
                 });
               },
             ),
-          Image.network(
-            widget.projectImages[_selectedIndex].urlImage,
-          ),
+          // Image.network(
+          //   widget.projectImages[_selectedIndex].urlImage,
+          // ),
           if (_selectedIndex != widget.projectImages.length - 1)
             IconButton(
               icon: Icon(

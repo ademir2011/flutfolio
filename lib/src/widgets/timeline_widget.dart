@@ -1,5 +1,5 @@
-import 'package:flutfolio/components/timeline_card_widget.dart';
 import 'package:flutfolio/src/models/trajectory_model.dart';
+import 'package:flutfolio/src/widgets/timeline_card_widget.dart';
 import 'package:flutfolio/src/widgets/timeline_timeline_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class TimelineWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           (index % 2 == 0)
-              ? Flexible(flex: 3, child: CTimelineCard(trajectoryList: trajectoryList))
+              ? Flexible(flex: 3, child: TimelineCardWidget(trajectoryList: trajectoryList))
               : const Spacer(flex: 3),
           const SizedBox(width: 50),
           Flexible(
@@ -36,7 +36,7 @@ class TimelineWidget extends StatelessWidget {
           const SizedBox(width: 50),
           (index % 2 == 0)
               ? const Spacer(flex: 3)
-              : Flexible(flex: 3, child: CTimelineCard(trajectoryList: trajectoryList)),
+              : Flexible(flex: 3, child: TimelineCardWidget(trajectoryList: trajectoryList)),
         ],
       ),
     );

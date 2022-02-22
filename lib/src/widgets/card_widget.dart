@@ -1,39 +1,33 @@
-import 'package:flutfolio/components/tag_widget.dart';
-import 'package:flutfolio/src/models/tags_model.dart';
+import 'package:flutfolio/src/stores/project_store.dart';
+import 'package:flutfolio/src/widgets/card_generic_widget.dart';
 import 'package:flutfolio/utils/icon_helper.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
 class CardWidget extends StatelessWidget {
+  final projectStore = ProjectStore();
+  final void Function() updateFunction;
+  final String cardId;
   final String title;
   final String description;
-  final List<TagsModel> tags;
+  final String tags;
   final String gitUrl;
+  final bool isAutenticated;
 
-  const CardWidget({
+  CardWidget({
     Key? key,
+    required this.updateFunction,
+    required this.cardId,
     required this.title,
     required this.description,
-    this.tags = const [],
+    this.isAutenticated = false,
+    this.tags = '',
     this.gitUrl = '',
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Theme.of(context).cardTheme.color,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xCCE5BE51),
-            blurRadius: 2.5,
-            spreadRadius: 0.5,
-            offset: Offset(0, 0),
-          ),
-        ],
-      ),
+    return CardGenericWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,31 +39,98 @@ class CardWidget extends StatelessWidget {
           Expanded(
             child: Text(
               description,
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.white38),
             ),
           ),
+          const Divider(indent: 0, endIndent: 0, height: 0.5),
+          const SizedBox(height: 10),
+          // Wrap(
+          //   children: tags
+          //       .map((tag) => TagWidget(
+          //             title: tag.title,
+          //           ))
+          //       .toList(),
+          // ),
+          const SizedBox(height: 10),
           const Divider(indent: 0, endIndent: 0, height: 0.5),
           const SizedBox(height: 10),
           Row(
-            children: tags
-                .map((tag) => CTag(
-                      title: tag.title,
-                    ))
-                .toList(),
-          ),
-          const SizedBox(height: 10),
-          const Divider(indent: 0, endIndent: 0, height: 0.5),
-          const SizedBox(height: 10),
-          IconButton(
-            icon: ImageIcon(
-              AssetImage(
-                IconHelper.getPath(IconName.github),
+            children: [
+              IconButton(
+                icon: ImageIcon(
+                  AssetImage(
+                    IconHelper.getPath(IconName.github),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: () {
+                  js.context.callMethod('open', [gitUrl]);
+                },
               ),
-            ),
-            onPressed: () {
-              js.context.callMethod('open', [gitUrl]);
-            },
-          ),
+              IconButton(
+                icon: Icon(
+                  Icons.image,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: () {
+                  // js.context.callMethod('open', [gitUrl]);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.video_collection_outlined,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: () {
+                  // js.context.callMethod('open', [gitUrl]);
+                },
+              ),
+              if (isAutenticated) Spacer(),
+              if (isAutenticated)
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.create,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: updateFunction,
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        color: Theme.of(context).errorColor,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) {
+                            return AlertDialog(
+                              title: Text('Tem certeza que deseja excluir ?'),
+                              actions: [
+                                TextButton(
+                                  child: const Text('NÃO'),
+                                  onPressed: () async {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text('SIM'),
+                                  onPressed: () async {
+                                    projectStore.removeDefault(cardId);
+                                    Navigator.of(ctx).popAndPushNamed('/');
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+            ],
+          )
         ],
       ),
     );

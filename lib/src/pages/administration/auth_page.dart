@@ -1,7 +1,9 @@
 import 'package:flutfolio/src/services/firebase_auth_service.dart';
+import 'package:flutfolio/src/stores/auth_store.dart';
 import 'package:flutfolio/src/widgets/card_generic_widget.dart';
 import 'package:flutfolio/src/widgets/textinput_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -11,29 +13,15 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final firebaseService = FirebaseAuthService();
-  var _isLoading = false;
-  var _errorMesssage = '';
+  final authStore = GetIt.I<AuthStore>();
 
-  void _submitForm() async {
-    if (formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
-      await firebaseService
-          .firebaseSignIn(email: emailController.text, password: passwordController.text)
-          .then((value) {
-        print(value.user?.uid ?? 'null');
-      }).catchError((error) {
-        _errorMesssage = error.toString();
-      });
-      setState(() {
-        _isLoading = false;
-      });
-    }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authStore.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -43,19 +31,19 @@ class _AuthPageState extends State<AuthPage> {
       body: Center(
         child: SizedBox(
           width: 300,
-          height: 300,
+          height: 400,
           child: Form(
-            key: formKey,
+            key: authStore.formKey,
             child: CardGenericWidget(
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    _errorMesssage.isNotEmpty
+                    authStore.errorMesssage.isNotEmpty
                         ? Padding(
                             padding: const EdgeInsets.all(10),
                             child: Text(
-                              _errorMesssage,
+                              authStore.errorMesssage,
                               style: TextStyle(
                                 color: Theme.of(context).errorColor,
                               ),
@@ -63,7 +51,7 @@ class _AuthPageState extends State<AuthPage> {
                           )
                         : Container(),
                     TextFormInputWidget(
-                      controller: emailController,
+                      controller: authStore.emailController,
                       hintText: 'E-mail',
                       validator: (email) {
                         final _email = email ?? '';
@@ -76,7 +64,7 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                     const SizedBox(height: 20),
                     TextFormInputWidget(
-                      controller: passwordController,
+                      controller: authStore.passwordController,
                       hintText: 'Senha',
                       validator: (password) {
                         final _password = password ?? '';
@@ -94,7 +82,7 @@ class _AuthPageState extends State<AuthPage> {
                         OutlinedButton(
                           child: Padding(
                             padding: const EdgeInsets.all(15),
-                            child: !_isLoading
+                            child: !authStore.isLoading
                                 ? Text(
                                     'AUTENTICAR',
                                     style: Theme.of(context).textTheme.headline3,
@@ -109,7 +97,7 @@ class _AuthPageState extends State<AuthPage> {
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
-                          onPressed: _submitForm,
+                          onPressed: () => authStore.authSubmit(context),
                         ),
                       ],
                     ),

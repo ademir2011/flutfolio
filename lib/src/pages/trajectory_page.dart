@@ -51,7 +51,3 @@ class _TrajetoryPageState extends State<TrajetoryPage> {
     );
   }
 }
-
-class Counter {
-  var i = ValueNotifier(1);
-}

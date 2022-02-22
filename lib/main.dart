@@ -1,10 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutfolio/src/pages/administration/auth_page.dart';
 import 'package:flutfolio/src/pages/home_page.dart';
+import 'package:flutfolio/src/stores/auth_store.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  GetIt.I.registerSingleton<AuthStore>(AuthStore());
+
   runApp(MyApp());
 }
 
