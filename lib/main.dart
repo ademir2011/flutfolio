@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutfolio/src/pages/administration/auth_page.dart';
 import 'package:flutfolio/src/pages/home_page.dart';
 import 'package:flutfolio/src/stores/auth_store.dart';
+import 'package:flutfolio/src/stores/contact_store.dart';
+import 'package:flutfolio/src/stores/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,16 +11,33 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   GetIt.I.registerSingleton<AuthStore>(AuthStore());
+  GetIt.I.registerSingleton<ContactStore>(ContactStore());
+  GetIt.I.registerSingleton<ThemeStore>(ThemeStore());
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final themeStore = GetIt.I<ThemeStore>();
+
   final _inicialization = Firebase.initializeApp();
 
-  MyApp({Key? key}) : super(key: key);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    themeStore.addListener(() {
+      setState(() {});
+    });
+  }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -27,7 +46,71 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             title: 'Flutter Demo',
-            theme: ThemeData(
+            themeMode: themeStore.typeTheme == TypeTheme.light ? ThemeMode.light : ThemeMode.dark,
+            theme: ThemeData.light().copyWith(
+              primaryColor: const Color(0xff0b0435),
+              drawerTheme: const DrawerThemeData(
+                backgroundColor: Color(0xFFf9f9f9),
+              ),
+              dividerTheme: DividerThemeData(
+                color: const Color(0xff0b0435).withAlpha(50),
+                indent: 100,
+                endIndent: 100,
+              ),
+              textTheme: TextTheme(
+                headline1: const TextStyle(
+                  color: Color(0xff0b0435),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+                headline2: const TextStyle(
+                  color: Color(0xff0b0435),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+                headline3: TextStyle(
+                  color: const Color(0xff0b0435).withOpacity(0.5),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
+                headline4: const TextStyle(
+                  color: Color(0xff0b0435),
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w500,
+                ),
+                button: const TextStyle(
+                  color: Color(0xff0b0435),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(textStyle: const TextStyle(color: Colors.red)),
+              ),
+              iconTheme: const IconThemeData(
+                color: Color(0xff0b0435),
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom().copyWith(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (states) {
+                      if (states.contains(MaterialState.hovered)) {
+                        return const Color(0xFFf3f3f2);
+                      } else {
+                        return const Color(0xFFf9f9f9);
+                      }
+                    },
+                  ),
+                  elevation: MaterialStateProperty.resolveWith<double>((states) => 0),
+                ),
+              ),
+              backgroundColor: const Color(0xfff3f3f2),
+              cardTheme: const CardTheme(
+                color: Color(0xFFf9f9f9),
+              ),
+              errorColor: const Color(0xFFDC3545),
+            ),
+            darkTheme: ThemeData.dark().copyWith(
               primaryColor: const Color(0xFFE5BE51),
               drawerTheme: const DrawerThemeData(
                 backgroundColor: Color(0xff202024),
@@ -67,7 +150,6 @@ class MyApp extends StatelessWidget {
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(textStyle: const TextStyle(color: Colors.red)),
               ),
-              hoverColor: const Color(0xFFE5BE51),
               iconTheme: const IconThemeData(
                 color: Colors.white,
               ),

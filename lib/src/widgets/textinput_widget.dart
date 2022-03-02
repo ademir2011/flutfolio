@@ -18,7 +18,7 @@ class TextFormInputWidget extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColor.withOpacity(0.5),
         ),
         focusColor: Theme.of(context).primaryColor,
         enabledBorder: OutlineInputBorder(
@@ -27,6 +27,16 @@ class TextFormInputWidget extends StatelessWidget {
           ),
         ),
         focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).primaryColor,
           ),

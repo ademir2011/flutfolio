@@ -1,3 +1,4 @@
+import 'package:flutfolio/src/widgets/card_generic_widget.dart';
 import 'package:flutter/material.dart';
 
 class ContactTileWidget extends StatelessWidget {
@@ -21,20 +22,7 @@ class ContactTileWidget extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           const SizedBox(width: 50),
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).cardTheme.color,
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0xCCE5BE51),
-                  blurRadius: 2.5,
-                  spreadRadius: 0.5,
-                  offset: Offset(0, 0),
-                ),
-              ],
-            ),
+          CardGenericWidget(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: List.generate(

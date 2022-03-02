@@ -1,4 +1,5 @@
 import 'package:flutfolio/src/stores/project_store.dart';
+import 'package:flutfolio/src/widgets/textinput_widget.dart';
 import 'package:flutter/material.dart';
 
 class FormProjectPage extends StatefulWidget {
@@ -26,55 +27,99 @@ class _FormProjectPageState extends State<FormProjectPage> {
     }
 
     return AlertDialog(
-      title: Text(isCreateOrIsNotEdit ? 'Cadastrar projeto' : 'Editar projeto'),
+      backgroundColor: Theme.of(context).backgroundColor,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: Theme.of(context).primaryColor,
+          width: 1,
+        ),
+      ),
+      title: Text(
+        isCreateOrIsNotEdit ? 'Cadastrar projeto' : 'Editar projeto',
+        style: Theme.of(context).textTheme.headline2,
+      ),
       content: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: projectStore.titleController,
-                decoration: const InputDecoration(hintText: 'Título'),
-                validator: projectStore.titleValidate,
-              ),
-              TextFormField(
-                controller: projectStore.descriptionController,
-                decoration: const InputDecoration(hintText: 'Descrição'),
-                validator: projectStore.descriptionValidate,
-              ),
-              TextFormField(
-                controller: projectStore.tagsController,
-                decoration: const InputDecoration(hintText: 'Tags ( Separado por vírgula )'),
-                validator: projectStore.tagsValidate,
-              ),
-              TextFormField(
-                controller: projectStore.githubLinkController,
-                decoration: const InputDecoration(hintText: 'Github Link'),
-                validator: projectStore.linkValidate,
-              ),
-              TextFormField(
-                controller: projectStore.imagesLinkController,
-                decoration: const InputDecoration(hintText: 'Images Link'),
-                validator: projectStore.linkValidate,
-              ),
-              TextFormField(
-                controller: projectStore.videosLinkController,
-                decoration: const InputDecoration(hintText: 'Videos Link'),
-                validator: projectStore.linkValidate,
-              ),
-            ],
+        child: SizedBox(
+          width: 400,
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormInputWidget(
+                  controller: projectStore.titleController,
+                  hintText: 'Título',
+                  validator: projectStore.titleValidate,
+                ),
+                const SizedBox(height: 10),
+                TextFormInputWidget(
+                  controller: projectStore.descriptionController,
+                  hintText: 'Descrição',
+                  validator: projectStore.descriptionValidate,
+                ),
+                const SizedBox(height: 10),
+                TextFormInputWidget(
+                  controller: projectStore.tagsController,
+                  hintText: 'Tags  Separado por vírgula )',
+                  validator: projectStore.tagsValidate,
+                ),
+                const SizedBox(height: 10),
+                TextFormInputWidget(
+                  controller: projectStore.githubLinkController,
+                  hintText: 'Github ink',
+                  validator: projectStore.linkValidate,
+                ),
+                const SizedBox(height: 10),
+                TextFormInputWidget(
+                  controller: projectStore.imagesLinkController,
+                  hintText: 'Images ink',
+                  validator: projectStore.linkValidate,
+                ),
+                const SizedBox(height: 10),
+                TextFormInputWidget(
+                  controller: projectStore.videosLinkController,
+                  hintText: 'Videos ink',
+                  validator: projectStore.linkValidate,
+                ),
+              ],
+            ),
           ),
         ),
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Fechar'),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+            child: Text(
+              'Fechar',
+              style: TextStyle(
+                color: Theme.of(context).errorColor,
+              ),
+            ),
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        TextButton(
-          child: const Text('Cadastrar'),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+            child: Text(
+              'Cadastrar',
+              style: Theme.of(context).textTheme.headline3,
+            ),
+          ),
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               await projectStore.addProject();

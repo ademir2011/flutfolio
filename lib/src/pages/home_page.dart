@@ -1,16 +1,13 @@
 import 'package:flutfolio/src/models/certification_model.dart';
 import 'package:flutfolio/src/models/contact_model.dart';
 import 'package:flutfolio/src/models/person_model.dart';
-import 'package:flutfolio/src/models/project_image_model.dart';
-import 'package:flutfolio/src/models/project_model.dart';
-import 'package:flutfolio/src/models/tags_model.dart';
 import 'package:flutfolio/src/models/trajectory_model.dart';
 import 'package:flutfolio/src/pages/certifications_page.dart';
 import 'package:flutfolio/src/pages/contact_page.dart';
 import 'package:flutfolio/src/pages/projects_page.dart';
 import 'package:flutfolio/src/pages/trajectory_page.dart';
+import 'package:flutfolio/src/utils/routes.dart';
 import 'package:flutfolio/src/widgets/side_menu_widget.dart';
-import 'package:flutfolio/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -164,8 +161,10 @@ class _HomePageState extends State<HomePage> {
       ),
     ],
     contact: ContactModel(
+      userId: '',
+      docRef: '',
       name: 'Ademir Bezerra da Silva Júnior',
-      birthDate: DateTime(1995, 9, 17),
+      birthDate: 'sdasdas',
       city: 'Parnamirim',
       state: 'Rio Grande do Norte',
       number: '+5584994282929',

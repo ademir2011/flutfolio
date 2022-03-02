@@ -1,12 +1,16 @@
+import 'package:flutfolio/src/stores/theme_store.dart';
+import 'package:flutfolio/src/utils/icon_helper.dart';
+import 'package:flutfolio/src/utils/routes.dart';
 import 'package:flutfolio/src/widgets/button_widget.dart';
-import 'package:flutfolio/utils/icon_helper.dart';
-import 'package:flutfolio/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class SideMenuWidget extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey;
 
-  const SideMenuWidget({Key? key, required this.navigatorKey}) : super(key: key);
+  SideMenuWidget({Key? key, required this.navigatorKey}) : super(key: key);
+
+  final themeStore = GetIt.I<ThemeStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -68,16 +72,27 @@ class SideMenuWidget extends StatelessWidget {
         Flexible(
           flex: 2,
           child: Column(
-            children: dataButtons.map<Widget>((element) {
-              return Container(
-                margin: const EdgeInsets.only(bottom: 25),
-                child: ButtonWidget(
-                  iconUrl: element['icon'].toString(),
-                  text: element['text'].toString(),
-                  onPressed: element['onPressed'] as Function(),
+            children: [
+              ...dataButtons.map<Widget>((element) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 25),
+                  child: ButtonWidget(
+                    iconUrl: element['icon'].toString(),
+                    text: element['text'].toString(),
+                    onPressed: element['onPressed'] as Function(),
+                  ),
+                );
+              }).toList(),
+              const Spacer(),
+              IconButton(
+                onPressed: themeStore.toogleTheme,
+                icon: Icon(
+                  themeStore.typeTheme == TypeTheme.dark ? Icons.wb_sunny : Icons.bedtime_outlined,
+                  size: 30,
                 ),
-              );
-            }).toList(),
+              ),
+              const SizedBox(height: 30),
+            ],
           ),
         ),
       ]),

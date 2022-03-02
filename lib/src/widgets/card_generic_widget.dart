@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:flutfolio/src/stores/theme_store.dart';
 
 class CardGenericWidget extends StatelessWidget {
+  final themeStore = GetIt.I<ThemeStore>();
+
   final Widget child;
-  const CardGenericWidget({
+  CardGenericWidget({
     Key? key,
     required this.child,
   }) : super(key: key);
@@ -17,6 +21,14 @@ class CardGenericWidget extends StatelessWidget {
         border: Border.all(
           color: Theme.of(context).primaryColor,
         ),
+        boxShadow: themeStore.typeTheme == TypeTheme.light
+            ? [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  offset: const Offset(1, 1),
+                )
+              ]
+            : null,
       ),
       child: child,
     );

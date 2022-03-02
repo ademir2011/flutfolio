@@ -1,6 +1,8 @@
 import 'package:flutfolio/src/stores/project_store.dart';
+import 'package:flutfolio/src/utils/generic_show_dialog.dart';
+import 'package:flutfolio/src/utils/icon_helper.dart';
 import 'package:flutfolio/src/widgets/card_generic_widget.dart';
-import 'package:flutfolio/utils/icon_helper.dart';
+import 'package:flutfolio/src/widgets/confirm_remove_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
@@ -39,7 +41,7 @@ class CardWidget extends StatelessWidget {
           Expanded(
             child: Text(
               description,
-              style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.white38),
+              style: Theme.of(context).textTheme.headline3,
             ),
           ),
           const Divider(indent: 0, endIndent: 0, height: 0.5),
@@ -102,29 +104,9 @@ class CardWidget extends StatelessWidget {
                         color: Theme.of(context).errorColor,
                       ),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (ctx) {
-                            return AlertDialog(
-                              title: Text('Tem certeza que deseja excluir ?'),
-                              actions: [
-                                TextButton(
-                                  child: const Text('NÃO'),
-                                  onPressed: () async {
-                                    Navigator.of(ctx).pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: const Text('SIM'),
-                                  onPressed: () async {
-                                    projectStore.removeDefault(cardId);
-                                    Navigator.of(ctx).popAndPushNamed('/');
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        GenericShowDialog.showGenericFormDialog(context, onAction: () async {
+                          projectStore.removeDefault(cardId);
+                        });
                       },
                     ),
                   ],

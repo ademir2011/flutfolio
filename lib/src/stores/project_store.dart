@@ -4,7 +4,7 @@ import 'package:flutfolio/src/models/project_model.dart';
 import 'package:flutfolio/src/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 
-class ProjectStore {
+class ProjectStore extends ChangeNotifier {
   ProjectService projectService = ProjectService();
 
   final titleController = TextEditingController();
@@ -74,14 +74,20 @@ class ProjectStore {
   }
 
   Future<DocumentSnapshot<Object?>> getProjectByDocRef(String docRef) {
-    return projectService.getProjectByDocRef(docRef);
+    final future = projectService.getProjectByDocRef(docRef);
+    notifyListeners();
+    return future;
   }
 
   Future<QuerySnapshot<Object?>> projectByDefault() async {
-    return await projectService.projectByDefault();
+    final future = await projectService.projectByDefault();
+    notifyListeners();
+    return future;
   }
 
   Future<void> removeDefault(String docRef) async {
-    return await projectService.removeDefault(docRef);
+    final future = await projectService.removeDefault(docRef);
+    notifyListeners();
+    return future;
   }
 }
